@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <title>Resultado da Investigação</title>
+</head>
+<body>
+    <h1>Resultado da Investigação</h1>
+    <p>{{ resultado }}</p>
+    
+    {% if link %}
+    <p><a href="{{ link }}" target="_blank">Clique aqui para acessar a solicitação do TRM-TB</a></p>
+    {% endif %}
+    
+    <h2>Instrução para Coleta de Escarro</h2>
+    <iframe width="600" height="315" src="https://www.youtube.com/embed/ZQ3g1Llh1Mw" frameborder="0" allowfullscreen></iframe>
+    
+    <a href="/">Reiniciar Questionário</a>
+</body>
+</html>
