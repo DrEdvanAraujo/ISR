@@ -1,2 +1,3 @@
 Flask==2.1.1
 gunicorn==20.1.0
+Werkzeug==2.0.3  # Use uma versão mais antiga que possui o método url_quote
