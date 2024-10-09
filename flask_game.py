@@ -5,8 +5,7 @@ import webbrowser
 class TRMTBJogo:
     def __init__(self, root):
         self.root = root
-        self.root.title("Investigação de Paciente Sintomático Respiratório")
-        self.root.geometry("450x400")
+        self.root.title("Investigação de Sintomático respiratório")
         self.video_link = "https://youtu.be/bIZqLj7kjXQ"
 
         # Botões de vídeo
@@ -56,10 +55,10 @@ class TRMTBJogo:
         self.button_sim.pack(side=tk.LEFT, padx=20, pady=10)
 
         self.button_nao = tk.Button(self.root, text="Não", command=lambda: self.responder("nao"))
-        self.button_nao.pack(side=tk.LEFT, padx=20, pady=10)
+        self.button_nao.pack(side=tk.RIGHT, padx=20, pady=10)
 
         self.button_voltar = tk.Button(self.root, text="Voltar", command=self.voltar_pergunta)
-        self.button_voltar.pack(side=tk.RIGHT, padx=20, pady=10)
+        self.button_voltar.pack(side=tk.BOTTOM, pady=10)
 
         self.mostrar_pergunta()
 
@@ -84,9 +83,17 @@ class TRMTBJogo:
 
     def voltar_pergunta(self):
         if self.indice_atual > 0:
+            # Retrocede o índice da pergunta atual
             self.indice_atual -= 1
+
+            # Se a resposta anterior foi "sim", subtrai os pontos
             if self.respostas[self.indice_atual] == "sim":
                 self.pontos -= self.perguntas[self.indice_atual]["pontos"]
+
+            # Apaga a resposta armazenada
+            self.respostas[self.indice_atual] = None
+
+            # Mostra a pergunta anterior
             self.mostrar_pergunta()
 
     def finalizar_jogo(self):
@@ -100,20 +107,7 @@ class TRMTBJogo:
         else:
             mensagem_final = "Sem indicação de realizar o TRM-TB."
             messagebox.showinfo("Resultado", mensagem_final)
-
-        self.opcoes_finais()
-
-    def opcoes_finais(self):
-        opcao = messagebox.askyesno("Finalizado", "Deseja assistir ao vídeo com instruções para coleta do escarro? Clique em 'Não' para reiniciar o questionário.")
-        if opcao:
-            webbrowser.open("https://youtu.be/ZQ3g1Llh1Mw?si=jwT5OO5oJRy71Gea")
-        else:
-            self.reiniciar_jogo()
-
-    def reiniciar_jogo(self):
-        for widget in self.root.winfo_children():
-            widget.destroy()
-        self.__init__(self.root)
+        self.root.quit()
 
 if __name__ == "__main__":
     root = tk.Tk()
