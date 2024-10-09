@@ -68,6 +68,10 @@ class TRMTBJogo:
         self.label_pergunta.config(text=pergunta_atual)
 
     def responder(self, resposta):
+        # Salva a resposta e ajusta a pontuação
+        if self.respostas[self.indice_atual] == "sim":
+            self.pontos -= self.perguntas[self.indice_atual]["pontos"]
+
         self.respostas[self.indice_atual] = resposta
         if resposta == "sim":
             self.pontos += self.perguntas[self.indice_atual]["pontos"]
@@ -80,10 +84,9 @@ class TRMTBJogo:
 
     def voltar_pergunta(self):
         if self.indice_atual > 0:
-            # Se a resposta anterior foi "sim", subtrair os pontos ao voltar
-            if self.respostas[self.indice_atual - 1] == "sim":
-                self.pontos -= self.perguntas[self.indice_atual - 1]["pontos"]
             self.indice_atual -= 1
+            if self.respostas[self.indice_atual] == "sim":
+                self.pontos -= self.perguntas[self.indice_atual]["pontos"]
             self.mostrar_pergunta()
 
     def finalizar_jogo(self):
